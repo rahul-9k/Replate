@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Replate</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="bg-glow"></div>
+
+  <nav class="navbar">
+    <div class="logo">Replate</div>
+    <div class="nav-links">
+      <a href="#guide">How it works</a>
+      <a href="#demo">Submit</a>
+      <a href="#resultCard">Result</a>
+    </div>
+  </nav>
+
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">AI-powered food redistribution</p>
+      <h1>
+        Replate<br />
+        <span>Smarter surplus food matching.</span>
+      </h1>
+      <p class="hero-copy">
+        Replate helps restaurants, events, and kitchens redistribute surplus food by matching them
+        with the most suitable NGOs using real constraints, live response logic, and AI reasoning.
+      </p>
+
+      <button class="cta" onclick="scrollToDemo()">
+        Try Live Demo ↓
+      </button>
+    </section>
+
+    <section id="guide" class="guide-grid">
+      <div class="guide-card">
+        <h3>Step 1 — Create a donation request</h3>
+        <p>
+          Enter the source, food type, quantity, expiry window, and pickup location from the donor side.
+        </p>
+        <p class="hint">This gives the system the real-world context it needs.</p>
+      </div>
+
+      <div class="guide-card">
+        <h3>Step 2 — Replate evaluates the options</h3>
+        <p>
+          The backend checks nearby NGOs, compares capacity, distance, reliability, and food fit,
+          then uses AI to explain the best choice.
+        </p>
+        <p class="hint">You get one recommended NGO plus alternatives.</p>
+      </div>
+
+      <div class="guide-card">
+        <h3>Step 3 — Review and act</h3>
+        <p>
+          The best NGO is shown first, alternatives are listed below, and the pickup plan is generated
+          so the donation can move fast.
+        </p>
+        <p class="hint">This is the actual decision output of the system.</p>
+      </div>
+    </section>
+
+    <section id="demo" class="stack">
+      <div class="card form-card">
+        <div class="section-heading">
+          <p class="section-label">Donation intake</p>
+          <h2>Submit a surplus food request</h2>
+        </div>
+
+        <form id="donationForm" class="donation-form">
+          <div class="form-grid">
+            <label>
+              <span>Source name</span>
+              <input type="text" id="source_name" placeholder="Restaurant / Event / Mess" required />
+            </label>
+
+            <label>
+              <span>Contact phone</span>
+              <input type="text" id="contact_phone" placeholder="10-digit phone number" required />
+            </label>
+
+            <label>
+              <span>Food type</span>
+              <input type="text" id="food_type" placeholder="veg biryani / roti / paneer curry" required />
+            </label>
+
+            <label>
+              <span>Quantity</span>
+              <input type="number" id="quantity" placeholder="Servings / plates" required />
+            </label>
+
+            <label>
+              <span>Veg / non-veg</span>
+              <select id="is_veg">
+                <option value="true">Vegetarian</option>
+                <option value="false">Non-Vegetarian</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Expiry window (hours)</span>
+              <input type="number" id="expiry_hours" placeholder="e.g. 3 or 4" required />
+            </label>
+
+            <label>
+              <span>Pickup address</span>
+              <input type="text" id="pickup_address" placeholder="Connaught Place, Delhi" required />
+            </label>
+
+            <label>
+              <span>Prepared at</span>
+              <input type="text" id="prepared_at" placeholder="Optional ISO timestamp" />
+            </label>
+
+            <label>
+              <span>Latitude</span>
+              <input type="number" step="any" id="pickup_lat" placeholder="28.6315" required />
+            </label>
+
+            <label>
+              <span>Longitude</span>
+              <input type="number" step="any" id="pickup_lng" placeholder="77.2167" required />
+            </label>
+          </div>
+
+          <label class="notes-field">
+            <span>Special notes</span>
+            <textarea
+              id="special_notes"
+              placeholder="Fresh food, packed, needs pickup within 2 hours"
+            ></textarea>
+          </label>
+
+          <button type="submit" class="btn">
+            Process Donation
+          </button>
+        </form>
+      </div>
+
+      <div class="result-shell hidden" id="resultShell">
+        <div class="result-wrapper hidden" id="resultCard">
+          <div class="recommended-card">
+            <div class="badge">AI Recommended</div>
+
+            <h2 id="ngo_name">Recommended NGO</h2>
+            <p class="distance"><span id="distance"></span> km away</p>
+
+            <div class="metrics">
+              <div>
+                <p>Score</p>
+                <h3 id="score"></h3>
+              </div>
+              <div>
+                <p>Status</p>
+                <h3 id="status"></h3>
+              </div>
+            </div>
+
+            <div class="pickup">
+              <p>Pickup Time</p>
+              <h4 id="pickup_time"></h4>
+            </div>
+          </div>
+
+          <div class="alternatives-section">
+            <h3>Other Options</h3>
+            <div id="alternativesContainer" class="alternatives-grid"></div>
+          </div>
+
+          <div class="ai-section">
+            <h3>AI Decision</h3>
+            <div class="ai-box">
+              <p id="reason"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Replate — built for real-world surplus food routing.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    function scrollToDemo() {
+      document.getElementById("demo").scrollIntoView({ behavior: "smooth" });
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
