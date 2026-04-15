@@ -9,7 +9,26 @@ It optimizes **distance, capacity, urgency, and reliability** to ensure food rea
 
 ## 🌐 Repository
 
-👉 :contentReference[oaicite:0]{index=0}
+👉 https://github.com/rahul-9k/Replate
+
+---
+
+## 🌐 Live Demo
+
+https://replate-frontend-spsl.onrender.com
+
+---
+
+## 📸 Screenshots
+
+### 🔹 Homepage
+![Homepage](assets/hero.png)
+
+### 🔹 Donation Form
+![Form](assets/form.png)
+
+### 🔹 AI Match Result
+![Result](assets/result.png)
 
 ---
 
@@ -109,10 +128,6 @@ uvicorn main:app --reload
 ```
 
 ### 5. Run frontend
-
-Open:
-frontend/index.html
-
 ---
 
 ## 🧠 AI Component
