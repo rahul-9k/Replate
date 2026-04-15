@@ -15,7 +15,7 @@ const reason = document.getElementById("reason");
 let alternativesContainer = document.getElementById("alternativesContainer");
 
 // API
-const API_URL = "http://127.0.0.1:8000/process-food";
+const API_URL = "https://replate-backend-4tll.onrender.com/process-food";
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
